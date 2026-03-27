@@ -1,40 +1,40 @@
 # cf-rust-hello
 
-Worker simples em Rust para Cloudflare Workers usando `wrangler`.
+Simple Rust worker for Cloudflare Workers using `wrangler`.
 
-## Requisitos
+## Requirements
 
-- Rust instalado
-- target WebAssembly do Rust: `wasm32-unknown-unknown`
-- Node.js disponível no ambiente
-- `wrangler` instalado globalmente com npm
+- Rust installed
+- Rust WebAssembly target: `wasm32-unknown-unknown`
+- Node.js available in your environment
+- `wrangler` installed globally with npm
 
-Este projeto separa as versoes de ferramenta assim:
+This project manages tool versions as follows:
 
-- Rust: fixado em `rust-toolchain.toml`
-- Node.js e `wrangler`: resolvidos por `.tool-versions` via `asdf`
+- Rust: pinned in `rust-toolchain.toml`
+- Node.js and `wrangler`: resolved via `.tool-versions` with `asdf`
 
 ## Setup
 
-Instale o target do Rust, se ainda nao tiver:
+Install the Rust target if you do not have it yet:
 
 ```bash
 rustup target add wasm32-unknown-unknown
 ```
 
-Se voce usa `asdf`, este projeto ja inclui `.tool-versions` para o shim do `wrangler` funcionar neste diretorio.
+If you use `asdf`, this project already includes `.tool-versions` so the `wrangler` shim works in this directory.
 
-## Rodando localmente
+## Run Locally
 
-Para subir o worker em modo de desenvolvimento:
+Start the worker in development mode:
 
 ```bash
 wrangler dev
 ```
 
-Na primeira execucao, o `wrangler` vai instalar o `worker-build`, compilar o crate Rust para Wasm e gerar `build/worker/shim.mjs` antes de abrir a URL local.
+On the first run, `wrangler` installs `worker-build`, compiles the Rust crate to Wasm, and generates `build/worker/shim.mjs` before opening the local URL.
 
-Se quiser adiantar essa etapa manualmente, rode:
+If you want to run this step manually first:
 
 ```bash
 cargo install worker-build
@@ -43,27 +43,27 @@ worker-build --release
 
 ## Deploy
 
-Para publicar no Cloudflare Workers:
+Publish to Cloudflare Workers:
 
 ```bash
 wrangler deploy
 ```
 
-Se o deploy pedir autenticacao, rode:
+If deployment asks for authentication:
 
 ```bash
 wrangler login
 ```
 
-## Estrutura
+## Project Structure
 
-- `src/lib.rs`: handler HTTP principal do worker
-- `wrangler.toml`: configuracao do Cloudflare Workers
-- `Cargo.toml`: dependencias e configuracao do crate Rust
+- `src/lib.rs`: main worker HTTP handler
+- `wrangler.toml`: Cloudflare Workers configuration
+- `Cargo.toml`: Rust crate dependencies and settings
 
-## Resposta atual
+## Current Response
 
-O worker responde:
+The worker currently responds with:
 
 ```text
 Hello Worker from Rust 🚀
