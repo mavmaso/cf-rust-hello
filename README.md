@@ -12,7 +12,7 @@ Simple Rust worker for Cloudflare Workers using `wrangler`.
 This project manages tool versions as follows:
 
 - Rust: pinned in `rust-toolchain.toml`
-- Node.js and `wrangler`: resolved via `.tool-versions` with `asdf`
+- Node.js and `wrangler`: use your local environment version manager
 
 ## Setup
 
@@ -22,7 +22,13 @@ Install the Rust target if you do not have it yet:
 rustup target add wasm32-unknown-unknown
 ```
 
-If you use `asdf`, this project already includes `.tool-versions` so the `wrangler` shim works in this directory.
+If you use `asdf`, do not commit `.tool-versions` in this repository because Cloudflare build environments may try to install tools from it and fail.
+
+For local development with `asdf`, create `.tool-versions` only on your machine (it is ignored by Git), for example:
+
+```text
+nodejs 24.3.0 .npm
+```
 
 ## Run Locally
 
